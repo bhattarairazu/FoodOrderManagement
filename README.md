@@ -3,9 +3,10 @@
 The documentation can be found at below url.
 https://documenter.getpostman.com/view/11208115/TVK5e2pb
 
-Every section is completed as per the problem statement.
 You can directly import to the postman from this url.
 
+`NOTE:`
+  - Run `localhost:8081/api/v1/` at first to create dummy data
 #### Workflow
 
 ##### 1. User 
@@ -90,7 +91,4 @@ You can directly import to the postman from this url.
   - `localhost:8081/api/v1/foodprepared/6`
 * Get Popular Top 5 Food To Prepared Today
   - `localhost:8081/api/v1/foodprepared/popularfood`
-<<<<<<< HEAD:README.md
-=======
-*
->>>>>>> 57e6e7d29432ecefa891b7eafd96baacc27d6ff4:README.md
+  
