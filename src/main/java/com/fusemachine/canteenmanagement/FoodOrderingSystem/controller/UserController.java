@@ -6,9 +6,7 @@ import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.RoleRepos
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Utils.Jwtutil;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.payload.JWTLoginSuccessResponse;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.payload.LoginRequest;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.service.CustomUserDetailsService;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.service.MapValiationError;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.service.UserService;
+import com.fusemachine.canteenmanagement.FoodOrderingSystem.service.*;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.validations.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,6 +46,7 @@ public class UserController {
 
     @Autowired
     private RoleRepository roleRepository;
+
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result){
@@ -94,6 +93,10 @@ public class UserController {
                 roleRepository.save(role);
             }
         }
+
+
+
+
         Map<String,String> map = new HashMap<>();
         map.put("message","Dummy Data Created");
 

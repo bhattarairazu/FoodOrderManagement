@@ -30,10 +30,13 @@ public class FoodTobePreparedServiceImpl implements FoodToBePreparedService {
     public FoodToPrepared save(FoodToPrepared food) {
 
             int quantity=0;
+            //checking food if it exists in databse
             Food foods = foodRepository.findFoodByFoodCode(food.getFoodCode());
             if(foods==null)
                 throw new GlobalExceptions("Food with code "+food.getFoodCode()+" Not found");
 
+            //cheking food to be prepared if it exists in database
+            //if it exist than increae the quantity
            FoodToPrepared foodToPrepared = foodToBePreparedRepository.findFoodToPreparedByFoodCode(food.getFoodCode());
             if(foodToPrepared!=null){
                 quantity =foodToPrepared.getQuantity()+food.getQuantity();
@@ -52,9 +55,12 @@ public class FoodTobePreparedServiceImpl implements FoodToBePreparedService {
 
 
             //food.setFood(foods);
-
+            //set new quntity to foodtobeprepard
             foodToPrepared.setQuantity(quantity);
+
+            //delete old one for update
             deleteById(food.getId());
+
            return foodToBePreparedRepository.save(foodToPrepared);
     }
 

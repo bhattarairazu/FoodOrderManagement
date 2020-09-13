@@ -13,8 +13,15 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
-
+    /**
+     * it is used for handling invalid login attempt by the user
+     * It throws invalid username and password when user attempts to access protected resource
+     * @param httpServletRequest
+     * @param httpServletResponse
+     * @param e
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         InvalidLoginResponse loginResponse = new InvalidLoginResponse();
