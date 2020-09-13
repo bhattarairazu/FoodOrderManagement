@@ -28,24 +28,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 		prePostEnabled = true
 )
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
-
+	//custom userdetails service
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 
-
+	//entry point for every request
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-//
 
+	//use for generating and validating jwt token
 	@Autowired
 	public JwtRequestFilter jwtAuthenticationFilter;
-
+	/**
+	*Authenticting username and password
+	 */
 	@Override
 	@Bean(BeanIds.AUTHENTICATION_MANAGER)
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
-
+	//security configuration
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
@@ -61,7 +63,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 				.headers().frameOptions().sameOrigin()
 				.and()
 				.authorizeRequests()
-				.antMatchers("/api/v1/users/**").permitAll()
+				.antMatchers("/api/v1/users/**","/api/v1/").permitAll()
 				.anyRequest().authenticated();
 		//.anyRequest().permitAll();
 

@@ -21,12 +21,12 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public Food save(Food food) {
-
+        //throws error if there is no category found with respective id
         Category category = categoryRepositoyr.findByName(food.getCategoryName());
         if(category==null){
             throw new GlobalExceptions("Category with name "+category.getName()+" Not found.Please Insert valid category Name");
         }
-        Food foods = foodRepository.findFoodByFoodCode(food.getFoodCode());
+        Food foods = foodRepository.findFoodByFoodCode(food.getFoodCode());//throws error if there is no food match
         if(foods!=null)
             throw new GlobalExceptions("Food with code "+food.getFoodCode()+" Already Exists.Please select new food code");
         food.setCategory(category);

@@ -31,8 +31,8 @@ public class CategoryController {
     @PostMapping("/")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> postCategory(@Valid @RequestBody Category category, BindingResult result, Principal principal){
-        ResponseEntity<?> errorMap = mapValiationError.MapValidationError(result);
-        if(errorMap!=null) return errorMap;
+        ResponseEntity<?> errorMap = mapValiationError.MapValidationError(result);//validate binding result
+        if(errorMap!=null) return errorMap;//return if there is error
 
         Category categorys = categoryService.save(category);
         return new ResponseEntity<>(categorys, HttpStatus.CREATED);
