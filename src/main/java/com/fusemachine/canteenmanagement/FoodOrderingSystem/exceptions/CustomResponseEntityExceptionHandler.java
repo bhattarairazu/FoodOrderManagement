@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler
-    public final ResponseEntity<Object> handleUsernameAlreadyExists(UserExceptions ex, WebRequest request){
+    public final ResponseEntity<Object> handleUsernameAlreadyExists(GlobalExceptions ex, WebRequest request){
         UserExceptionResponse exceptionResponse = new UserExceptionResponse(ex.getMessage());
         return new ResponseEntity(exceptionResponse,HttpStatus.BAD_REQUEST);
     }

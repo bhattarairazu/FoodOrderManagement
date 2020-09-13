@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class UserExceptions extends RuntimeException {
+public class GlobalExceptions extends RuntimeException {
 
-public UserExceptions(String message){
+public GlobalExceptions(String message){
     super(message);
 }
 

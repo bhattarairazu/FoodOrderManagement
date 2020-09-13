@@ -4,12 +4,10 @@ import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.MenuItem;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.Orderitems;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.Orders;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.OrderItemsRepository;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.OrderRepository;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.UserExceptions;
+import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.GlobalExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,20 +27,20 @@ public class OrderItemsServiceImpl implements OrderItemsService{
     public Orderitems save(Orderitems orders) {
             Orders order = orderService.findOrderById(orders.getOrdersId());
             if(order==null)
-                throw new UserExceptions("Order with id "+orders.getOrdersId()+" not found");
+                throw new GlobalExceptions("Order with id "+orders.getOrdersId()+" not found");
 
             double totalOrderPrice = order.getGrandTotal();
             MenuItem menuitem = menuItemsService.findById(orders.getMenuItemsId());
             if(menuitem!=null){
                 orders.setMenuitem(menuitem);
             }else{
-                throw new UserExceptions("Cann't create order without proper menu item");
+                throw new GlobalExceptions("Cann't create order without proper menu item");
             }
             if(orders.getQuantity()==0){
-                throw new UserExceptions("There is no any order.Please order atleast one item");
+                throw new GlobalExceptions("There is no any order.Please order atleast one item");
             }
             if(orders.getPrice()==0){
-                throw new UserExceptions("Price cannot be set to 0");
+                throw new GlobalExceptions("Price cannot be set to 0");
             }
             double totalprice = (double) orders.getQuantity() * orders.getPrice();
             orders.setTotalPrice(totalprice);

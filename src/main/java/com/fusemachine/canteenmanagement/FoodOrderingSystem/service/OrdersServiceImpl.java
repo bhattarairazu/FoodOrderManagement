@@ -1,18 +1,14 @@
 package com.fusemachine.canteenmanagement.FoodOrderingSystem.service;
 
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.MenuItem;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.Orderitems;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.Orders;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.User;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.MenuItemsRepository;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.OrderItemsRepository;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.OrderRepository;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.UserRepository;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.UserExceptions;
+import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.GlobalExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -38,10 +34,10 @@ public class OrdersServiceImpl implements OrderService {
             System.out.println("Order date"+orders.getOrderScheduleDate()+" orderschedule "+orders.isOrderSchedule());
             User user = userRepository.findByUsername(orders.getUsername());
             if(user==null)
-                throw new UserExceptions("User with username "+orders.getUsername()+" Not found");
+                throw new GlobalExceptions("User with username "+orders.getUsername()+" Not found");
             if(orders.isOrderSchedule()){
                 if(orders.getOrderScheduleDate()==null)
-                    throw new UserExceptions("Schedule order should include date and time");
+                    throw new GlobalExceptions("Schedule order should include date and time");
             }
             orders.setUser(user);
             if(orders.getId()==0){

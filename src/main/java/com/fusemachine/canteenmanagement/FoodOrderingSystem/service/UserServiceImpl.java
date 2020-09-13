@@ -4,18 +4,14 @@ import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.Role;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.User;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.RoleRepository;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.UserRepository;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.UserExceptions;
+import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.GlobalExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,7 +31,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setEmployeeId(String.valueOf(UUID.randomUUID()));
             if(isEmailExist(user.getEmail())){
-                throw new UserExceptions("Email "+user.getEmail()+" ALready Exist.Please enter new email");
+                throw new GlobalExceptions("Email "+user.getEmail()+" ALready Exist.Please enter new email");
             }
             //check if the user contains roles or not
             Set<Role> roleslist = user.getRoles();
@@ -43,7 +39,7 @@ public class UserServiceImpl implements UserService {
             //geting streams of roles from user
             for(Role role : roleslist){
                 if(roleRepository.findRoleByName(role.getName())==null){
-                    throw new UserExceptions("Role with "+role.getName()+" not found.Please enter valid role for user.Either ADMIN or EMPLOYEE");
+                    throw new GlobalExceptions("Role with "+role.getName()+" not found.Please enter valid role for user.Either ADMIN or EMPLOYEE");
                 }
                 newCollection.add(roleRepository.findRoleByName(role.getName()));
             }
@@ -51,7 +47,7 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(user);
 
         }catch (Exception e){
-            throw new UserExceptions(e.getMessage());
+            throw new GlobalExceptions(e.getMessage());
         }
     }
 
@@ -59,7 +55,7 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String email) {
         User user = userRepository.findByEmail(email);
         if(user==null) {
-            throw new UserExceptions("User with email "+email+" not found");
+            throw new GlobalExceptions("User with email "+email+" not found");
         }
         return user;
     }

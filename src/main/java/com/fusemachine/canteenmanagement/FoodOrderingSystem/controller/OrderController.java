@@ -91,6 +91,7 @@ public class OrderController {
     @GetMapping("/orderbydate/{date}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> specificDateOrder(@PathVariable String date){
+
         String dateFrom = date + " 00:00:00.0";
         String dateTo = date + " 23:59:59.0";
 

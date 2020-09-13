@@ -3,14 +3,13 @@ package com.fusemachine.canteenmanagement.FoodOrderingSystem.service;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.Menu;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.MenuItemsRepository;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.MenuRepository;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.UserExceptions;
+import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.GlobalExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +42,7 @@ public class MenuServiceImpl implements MenuService {
         Menu menus = menuRepository.findTodaysMenut(datesFrom,datesTo);
 
         if(menus!=null)
-            throw new UserExceptions("Menu already Created.Now Add items to menu.Cann't create multiple menu in a single day");
+            throw new GlobalExceptions("Menu already Created.Now Add items to menu.Cann't create multiple menu in a single day");
 
 
         return menuRepository.save(menu);

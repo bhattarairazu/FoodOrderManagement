@@ -5,8 +5,7 @@ import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.Menu;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.MenuItem;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.FoodRepository;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.MenuItemsRepository;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.MenuRepository;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.UserExceptions;
+import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.GlobalExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +30,11 @@ public class MenuItemServiceImpl implements MenuItemsService {
         int id = menuItem.getMenuId();
         Menu menu = menuService.findById(id);
         if(menu==null)
-            throw new UserExceptions("Menu with id "+id+" Not found");
+            throw new GlobalExceptions("Menu with id "+id+" Not found");
 
         Food food = foodRepository.findFoodByFoodCode(menuItem.getFoodCode());
         if(food==null)
-            throw new UserExceptions("Food with code "+menuItem.getFoodCode()+" Not found");
+            throw new GlobalExceptions("Food with code "+menuItem.getFoodCode()+" Not found");
 
         menuItem.setFood(food);
         menuItem.setMenu(menu);

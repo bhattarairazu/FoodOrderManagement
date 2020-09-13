@@ -2,15 +2,13 @@ package com.fusemachine.canteenmanagement.FoodOrderingSystem.service;
 
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.Food;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.FoodToPrepared;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.Entity.User;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.FoodRepository;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.FoodToBePreparedRepository;
 import com.fusemachine.canteenmanagement.FoodOrderingSystem.Repository.UserRepository;
-import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.UserExceptions;
+import com.fusemachine.canteenmanagement.FoodOrderingSystem.exceptions.GlobalExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +32,7 @@ public class FoodTobePreparedServiceImpl implements FoodToBePreparedService {
             int quantity=0;
             Food foods = foodRepository.findFoodByFoodCode(food.getFoodCode());
             if(foods==null)
-                throw new UserExceptions("Food with code "+food.getFoodCode()+" Not found");
+                throw new GlobalExceptions("Food with code "+food.getFoodCode()+" Not found");
 
            FoodToPrepared foodToPrepared = foodToBePreparedRepository.findFoodToPreparedByFoodCode(food.getFoodCode());
             if(foodToPrepared!=null){
