@@ -91,6 +91,9 @@ public class User {
 
     public User() {
     }
+    public User(String username) {
+        this.username = username;
+    }
 
     public int getId() {
         return id;
@@ -219,4 +222,5 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
 }

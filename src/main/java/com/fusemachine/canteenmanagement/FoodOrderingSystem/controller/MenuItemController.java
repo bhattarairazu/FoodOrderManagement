@@ -40,17 +40,20 @@ public class MenuItemController {
         MenuItem menuitems = menuItemsService.save(menuItem);
         return new ResponseEntity<>(menuitems, HttpStatus.CREATED);
     }
-
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> deleteMenuItem(@PathVariable int id){
-        MenuItem menuItem = menuItemsService.findById(id);
-        if(menuItem ==null)
-            return globalResponse.globalResponse("MenuItem with id "+id+" Not found",HttpStatus.NOT_FOUND.value());
-
-        menuItemsService.deleteById(id);
-        return globalResponse.globalResponse("Success",HttpStatus.OK.value());
+    @PutMapping("/put/")
+    public ResponseEntity<?> putting(){
+        return new ResponseEntity<>("This is new put mehtod for testing merge conflict",HttpStatus.OK);
     }
+//    @DeleteMapping("/{id}")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    public ResponseEntity<?> deleteMenuItem(@PathVariableg int id){
+//        MenuItem menuItem = menuItemsService.findById(id);
+//        if(menuItem ==null)
+//            return globalResponse.globalResponse("MenuItem with id "+id+" Not found",HttpStatus.NOT_FOUND.value());
+//
+//        menuItemsService.deleteById(id);
+//        return globalResponse.globalResponse("Success",HttpStatus.OK.value());
+//    }
 
     @GetMapping("/")
     public ResponseEntity<?> getAllMenuItem(){

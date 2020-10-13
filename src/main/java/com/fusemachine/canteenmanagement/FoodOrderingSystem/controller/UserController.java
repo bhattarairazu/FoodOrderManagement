@@ -81,33 +81,33 @@ public class UserController {
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<Map<String,String>> insertRawData(){
-        String [] roleslist = {"ROLE_ADMIN","ROLE_EMPLOYEE"};
-
-        //initially adding roles to the database
-        for(String str:roleslist){
-            if(roleRepository.findRoleByName(str)==null) {
-                Role role = new Role();
-                role.setName(str);
-                roleRepository.save(role);
-            }
-        }
-
-
-
-
-        Map<String,String> map = new HashMap<>();
-        map.put("message","Dummy Data Created");
-
-        return new ResponseEntity<>(map,HttpStatus.CREATED);
-
-
-
-
-
-
-    }
+//    @GetMapping("/")
+//    public ResponseEntity<Map<String,String>> insertRawData(){
+//        String [] roleslist = {"ROLE_ADMIN","ROLE_EMPLOYEE"};
+//
+//        //initially adding roles to the database
+//        for(String str:roleslist){
+//            if(roleRepository.findRoleByName(str)==null) {
+//                Role role = new Role();
+//                role.setName(str);
+//                roleRepository.save(role);
+//            }
+//        }
+//
+//
+//
+//
+//        Map<String,String> map = new HashMap<>();
+//        map.put("message","Dummy Data Created");
+//
+//        return new ResponseEntity<>(map,HttpStatus.CREATED);
+//
+//
+//
+//
+//
+//
+//    }
 
 
 
