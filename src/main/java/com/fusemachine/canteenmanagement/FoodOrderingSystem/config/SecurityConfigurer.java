@@ -51,11 +51,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
-				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-				.accessDeniedHandler((request, response, accessDeniedException) -> {
-					AccessDeniedHandler defaultAccessDeniedHandler = new AccessDeniedHandlerImpl();
-					defaultAccessDeniedHandler.handle(request, response, accessDeniedException);
-					})
+				.exceptionHandling()
+				.accessDeniedHandler(accessDeniedHandler())
+				.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+
 				.and()
 				.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -75,4 +74,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
+	@Bean
+	public AccessDeniedHandler accessDeniedHandler(){
+		return new CustomAccessDeniedHandler();
+	}
 }

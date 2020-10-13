@@ -23,23 +23,12 @@ public class MenuServiceImpl implements MenuService {
     @Autowired
     private MenuItemsRepository menuItemsRepository;
 
+    @Autowired
+    private DateConversionService dateConversionService;
     @Override
     public Menu save(Menu menu) {
 
-        System.out.println("New date time "+ LocalDate.now());
-        String dateFrom = LocalDate.now() + " 00:00:00.0";
-        String dateTo = LocalDate.now()+" 23:99:99.0";
-        SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Date datesFrom=null;
-        Date datesTo =null;
-        try {
-            datesFrom =  pattern.parse(dateFrom);
-            datesTo = pattern.parse(dateTo);
-            System.out.print(datesFrom+" "+datesTo);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Menu menus = menuRepository.findTodaysMenut(datesFrom,datesTo);
+        Menu menus = menuRepository.findTodaysMenut(dateConversionService.getTodaysdate(" 00:00:00.0"),dateConversionService.getTodaysdate(" 23:59:59.0"));
 
         if(menus!=null)
             throw new GlobalExceptions("Menu already Created.Now Add items to menu.Cann't create multiple menu in a single day");
